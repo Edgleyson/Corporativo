@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+    <p:menuButton value="Menu">
+        <p:menuitem value="Cadastrar Autor" 
+                    outcome="autor" 
+                    icon="ui-icon-person" 
+                    rendered="#{facesContext.externalContext.isUserInRole('administrador')}"
+                    />
+        <p:menuitem value="Cadastrar Editora" 
+                    outcome="editora" 
+                    icon="ui-icon-print"
+                    rendered="#{facesContext.externalContext.isUserInRole('administrador')}" 
+                    />
+        <p:menuitem value="Cadastrar Livro" 
+                    outcome="livro"
+                    icon="ui-icon-document"
+                    rendered="#{facesContext.externalContext.isUserInRole('administrador')}" 
+                    />
+        <p:separator rendered="#{facesContext.externalContext.isUserInRole('administrador')}" 
+                     />
+        <p:menuitem value="Listar Livro"
+                    outcome="livros"
+                    icon="ui-icon-document"
+                    rendered="#{facesContext.externalContext.isUserInRole('usuario')}"
+                    />      
+        <p:separator />
+        <p:menuitem value="Sair" action="#{logoutBean.logout()}" 
+                    immediate="true"
+                    icon="ui-icon-home"/>
+    </p:menuButton>
+</html>
+

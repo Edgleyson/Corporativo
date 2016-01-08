@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cadastro de usuários</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/> 
+        <script src='https://www.google.com/recaptcha/api.js' />
+    </h:head>
+    <h:body>
+        <h:form id="Autor">            
+            <p:growl id="growl" life="3500" autoUpdate="true"/>
+            <p:panel id="panel" header="Cadastro de Usuário" footer="Chat Academico">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="login" value="Apelido: " />
+                    <p:inputText id="login" value="#{usuarioBean.entidade.apelido}" label="Login" required="true"/>
+
+                    <h:outputLabel for="senha" value="Senha: " />
+                    <p:password id="senha" value="#{usuarioBean.entidade.senha}" label="Senha" required="true" 
+                                feedback="true" goodLabel="Boa" weakLabel="Fraca" strongLabel="Forte"
+                                promptLabel="Informe a senha" />
+
+                    <h:outputLabel for="primeiroNome" value="Primeiro Nome: " />
+                    <p:inputText id="primeiroNome" value="#{usuarioBean.entidade.primeiroNome}" label="Primeiro Nome" required="true"/>
+
+                    <h:outputLabel for="ultimoNome" value="Último Nome: " />
+                    <p:inputText id="ultimoNome" value="#{usuarioBean.entidade.ultimoNome}" label="Último Nome" required="true"/>
+
+                    <p:outputLabel for="sexo" value="Sexo:" />
+                    <p:selectOneMenu id="sexo" value="#{usuarioBean.entidade.sexo}" style="width:125px">
+                        <f:selectItem itemLabel="Masculino" itemValue="M" />
+                        <f:selectItem itemLabel="Feminino" itemValue="F" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel for="nasc" value="Nascimento:" />
+                    <p:calendar id="nasc" value="#{usuarioBean.entidade.nascimento}" showOn="button"
+                                pattern="dd-MM-yyyy" converterMessage="Data de nascimento inválida"
+                                required="true" navigator="true" requiredMessage="Data de Nascimento é obrigatório">
+                    <f:convertDateTime pattern="dd-MM-yyyy" timeZone="Brazil/East"></f:convertDateTime> 
+                    </p:calendar>
+                    
+                    <p:outputLabel for="cpf" value="CPF: " />
+                    <p:inputMask id="cpf" value="#{usuarioBean.entidade.cpf}" mask="999.999.999-99"/>
+                    
+                    <h:outputLabel for="email" value="E-mail " />
+                    <p:inputText id="email" value="#{usuarioBean.entidade.email}" label="E-mail" required="true"/>
+                    <h:outputLabel value="Captcha: " />
+                    <div class="g-recaptcha" data-sitekey="#{facesContext.externalContext.getInitParameter('PUBLIC_CAPTCHA_KEY')}"/>
+                </h:panelGrid>
+                <p:commandButton action="#{usuarioBean.salvar()}" value="Salvar" ajax="false" update="growl, panel" 
+                                 title="Salvar Usuário" icon="ui-icon-play" validateClient="true"/>
+                <p:commandButton immediate="true" value="Cancelar" ajax="false" action="cancelar" icon="ui-icon-stop"/>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
+
+
